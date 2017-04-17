@@ -5,13 +5,16 @@ body {
   font-family: "PingFang SC", "Microsoft YaHei", "STHeitiSC-Light", "Helvetica-Light", "Helvetica Neue", Tahoma, Arial, sans-serif;
 }
 
-.clearfix:after {
-  content: ".";
-  display: block;
-  clear: both;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
+.clearfix {
+  &:before,
+  &:after {
+    display: table;
+    line-height: 0;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
 }
 
 @media(-webkit-min-device-pixel-ratio:1.5),
