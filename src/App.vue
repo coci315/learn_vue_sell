@@ -18,6 +18,7 @@
 
 <script>
 import header from '@/components/header/header';
+import { urlParse } from '@/common/js/util.js';
 
 const ERR_OK = 0;
 
@@ -25,14 +26,19 @@ export default {
   name: 'app',
   data() {
     return {
-      seller: {}
+      seller: {
+        id: (() => {
+          let queryParam = urlParse();
+          return queryParam.id;
+        })()
+      }
     };
   },
   created() {
-    this.$http.get('/api/seller').then((response) => {
+    this.$http.get('/api/seller?id=' + this.seller.id).then((response) => {
       const result = response.body;
       if (result.errno === ERR_OK) {
-        this.seller = result.data;
+        this.seller = Object.assign({}, this.seller, result.data);
       }
     });
   },
